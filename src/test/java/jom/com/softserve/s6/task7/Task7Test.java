@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class Task7Test {
 
     final private static String PACKAGE = "jom.com.softserve.s6.task7.";
-/*
+
     @DisplayName("Check that Classes is present")
     @ParameterizedTest
     @MethodSource("listOfClasses")
@@ -214,5 +214,4 @@ public class Task7Test {
             fail("Do not work correct with empty stream" + e);
         }
     }
-    */
 }
