@@ -2,6 +2,7 @@ package jom.com.softserve.s6.task6;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -13,23 +14,14 @@ public class MyUtils {
         if (list == null) {
             throw new NullPointerException("Input stream cannot be null");
         }
+        UnaryOperator<String> codeExtractor = phone -> phone.length() < 7 ? "err" : phone.matches("\\d{10,}") ? phone.substring(0, 3) : "loc";
+        UnaryOperator<String> phoneExtractor = phone -> phone.matches("\\d{10,}") ? phone.substring(3) : phone;
         return list.stream()
                 .flatMap(Function.identity())
                 .filter(Objects::nonNull)
                 .map(phone -> phone.replaceAll("\\D+", ""))
                 .filter(phone -> !phone.isEmpty())
-                .collect(groupingBy(
-                        phone -> {
-                            if (phone.length() < 7) {
-                                return "err";
-                            }
-                            return phone.matches("\\d{10,}") ? phone.substring(0, 3) : "loc";
-                        },
-                        HashMap::new,
-                        mapping(phone -> phone.matches("\\d{10,}") ? phone.substring(3) : phone, toSet())
-                )).entrySet()
-                .stream()
-                .collect(toMap(Map.Entry::getKey, entry -> entry.getValue().stream().sorted()));
+                .collect(groupingBy(codeExtractor, collectingAndThen(mapping(phoneExtractor, toCollection(TreeSet::new)), TreeSet::stream)));
     }
 
     public static void main(String[] args) {
