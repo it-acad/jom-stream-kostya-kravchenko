@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class Task6Test {
 
     final private static String PACKAGE = "jom.com.softserve.s6.task6.";
-/*
+
     private static Stream<Arguments> listOfClasses() {
         return Stream.of(Arguments.of("MyUtils"));
     }
@@ -390,5 +390,4 @@ public class Task6Test {
             fail("Do not work for a list of only null present " + e);
         }
     }
-    */
 }
