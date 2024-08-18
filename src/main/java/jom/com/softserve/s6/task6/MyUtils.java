@@ -32,8 +32,6 @@ public class MyUtils {
         );
 
         Map<String, Stream<String>> result = phoneNumbers(list);
-        result.forEach((key, value) -> {
-            System.out.println(key + "=" + value.collect(Collectors.toList()));
-        });
+        result.forEach((key, value) -> System.out.println(key + "=" + value.toList()));
     }
 }
